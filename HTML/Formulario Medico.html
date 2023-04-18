@@ -1,0 +1,85 @@
+<!-- Exercício
+Crie um formulário para marcação de consulta.
+O formulário deve ter uma seção de dados pessoais, contendo:
+nome completo, CPF, data de nascimento, endereço, CEP, e-mail e
+telefone.
+O formulário deve ter uma seção de dados da consulta, contendo:
+seleção da especialidade médica (ex. Cardiologia, dermatologia),
+data e hora, seleção de medicamentos alérgicos (ex. Antibióticos,
+Anti-inflamatórios) e campo de informações adicionais (múltiplas
+linhas).
+Use os tipos adequados para cada entrada solicitada.
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <body>
+            <h1>Formulário de Dados Pessoais</h1>
+            <form>
+                <label for="Nome Completo"> 
+                    Nome Completo
+                </label> <br>
+                <input type="texto" name="Nome Completo"><br>
+                <input type="radio" name="sex" value="male"> Masculino
+                <br>
+                <input type="radio" name="sex" value="female"> Feminino
+                </form>
+                <label for="CPF"> 
+                    Digite o CPF
+                </label> <br>
+                <input type="texto" name="CPF"><br>
+
+                <label for="CEP"> 
+                   Digite o CEP
+                </label> <br>
+                <input type="texto" name="CEP"><br>
+
+                <label for="Data Nascimento"> 
+                    Digite a Data Nascimento
+                 </label> <br>
+                 <input type="texto" name="Data Nascimento"><br>
+
+                 <label for="Endereço"> 
+                    Digite o Endereço
+                 </label> <br>
+                 <input type="texto" name="Endereço"><br>
+
+                 <label for="Telefone"> 
+                    Digite o Telefone 
+                 </label> <br>
+                 <input type="texto" name="Telefone"><br>
+
+                 <label for="Email"> 
+                    Digite o Email 
+                 </label> <br>
+                 <input type="texto" name="Email"><br>
+                    <h1>Selecione a Especialidade Médica</h1>
+                 <form>
+                    <input type="checkbox" name="Cardiologia">
+                    Cardiologia
+                    <br>
+                    <input type="checkbox" name="Dermatologia">
+                    Dermatologia
+                    <input type="checkbox" name="Psicologia">
+                    Psicologia
+                    <input type="checkbox" name="Pisquiatria">
+                    Pisquiatria
+                    <input type="checkbox" name="Ortopedista">
+                    Ortopedista
+                    <input type="checkbox" name="Oftalmologista">
+                    Oftalmologista
+                    <p>
+                       Informações Adicionais e Alergias 
+                    </p>
+                        <textarea rows="10" cols="30">
+Digite as suas alergias e informações relevantes 
+                        </textarea>
+            
+                    </form>
+
+
+           
+        </body>
+    </head>
+</html>
