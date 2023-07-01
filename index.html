@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Última localização</title>
+    
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+        #map {
+            display: block;
+            margin: 20px auto;
+            width: min-content;
+            -webkit-box-shadow: -4px 6px 22px 0px rgba(0,0,0,0.46);
+-moz-box-shadow: -4px 6px 22px 0px rgba(0,0,0,0.46);
+box-shadow: -4px 6px 22px 0px rgba(0,0,0,0.46);
+border: 1px solid #ccc;
+padding: 5px;
+border-radius: 5px;
+text-align: center;
+font-family: 'Roboto', sans-serif;
+padding-bottom: 8px;
+            
+        }
+        iframe {
+            margin-bottom: 5px;
+        }
+        #tracker {
+            display: block;
+            margin: 20px auto;
+            width: 80%;
+            border: 3px solid #ccc;
+            padding: 10px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 25px;
+            border-radius: 5px;
+            -webkit-box-shadow: -4px 6px 22px 0px rgba(0,0,0,0.46);
+-moz-box-shadow: -4px 6px 22px 0px rgba(0,0,0,0.46);
+box-shadow: -4px 6px 22px 0px rgba(0,0,0,0.46);
+        }
+    </style>
+</head>
+<body onload="alert('Seu pet saiu da área de monitoramento')">
+    <div id="map">
+        <h1 id="status">Última localização do seu pet!</h1>
+        <iframe id="lastloc" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3837.8944590619326!2d-48.03544502400863!3d-15.862143424628737!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935a2d852c493b99%3A0x2f82354e5a73c152!2sCatholic%20Educational%20Center%20of%20Brasilia!5e0!3m2!1sen!2sbr!4v1688232858689!5m2!1sen!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+        <button id="btntrack">Rastrear</button>
+    </div>
+    <div id="tracker"><p>Distância até o seu pet🐶: <span id="distance"></span></p>
+    <p>Bateria do rastreador🔋: <span id="battery"></span></p></div>
+    <script>
+        let batteryText=document.getElementById('battery')
+        let distanceText=document.getElementById('distance');
+        let button=document.getElementById('btntrack');
+        let iframe=document.getElementById('lastloc');
+        let newloc='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d61404.69203249288!2d-48.11055225136723!3d-15.86746!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935a2d9964bec9b3%3A0xe3c96bf824cb9613!2sTagua%20Life!5e0!3m2!1sen!2sbr!4v1688241321910!5m2!1sen!2sbr';
+        let status=document.getElementById('status')
+        console.log(distanceText);
+        window.addEventListener('load',()=>{
+            
+            batteryText.textContent=Math.floor(Math.random()*(100-20+1)+20)+'%';
+        })
+    console.log(batteryText);
+    button.addEventListener('click',()=>{
+        distanceText.textContent=Math.floor(Math.random()*(5-1+1)+1)+'km';
+console.log(button);
+alert('Localizando...');
+iframe.src=newloc;
+status.textContent='Encontramos o seu Pet:';
+
+    })
+
+    </script>
+        
+    
+</body>
+</html>

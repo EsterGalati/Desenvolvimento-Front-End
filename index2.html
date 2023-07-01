@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Localizador de Pet</title>
+    <style>
+      body {
+          font-family: Arial, sans-serif;
+          background-color: #f7f7f798;
+          margin: 0;
+          padding: 20px;
+      }
+
+      h1 {
+          color: #38791c;
+          margin-bottom: 20px;
+          text-align: center;
+      }
+
+      #map {
+          height: 400px;
+          width: 100%;
+          margin-bottom: 20px;
+      }
+
+      p {
+          color: #666666;
+          font-size: 14px;
+          margin-bottom: 10px;
+      }
+
+      #distancia {
+          font-weight: bold;
+      }
+
+      #ultima-localizacao, #bateria {
+          font-style: italic;
+      }
+  </style>
+    <script>
+        let map;
+        let petMarker;
+        let userMarker;
+
+     // Última localização registrada do pet (coordenadas simuladas)
+        const ultimaLocalizacao = { lat: -15.828039, lng: -47.923322 };
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 12,
+                center: ultimaLocalizacao,
+            });
+
+            petMarker = new google.maps.Marker({
+                position: ultimaLocalizacao,
+                map: map,
+                title: "Pet",
+            });
+            // Obter a localização atual do usuário
+            navigator.geolocation.getCurrentPosition(function (position) {
+                const userLatLng = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                };
+
+                // Criar marcador para a localização do usuário
+                userMarker = new google.maps.Marker({
+                    position: userLatLng,
+                    map: map,
+                    title: "Sua localização",
+                });
+
+                // Calcular a distância entre o usuário e o pet
+                const distancia = calcularDistancia(userLatLng, petMarker.position);
+
+                // Calcular a distância entre a última localização e a localização atual do pet
+                const distanciaUltimaLocalizacao = calcularDistancia(ultimaLocalizacao, petMarker.position);
+
+               // Atualizar os dados na página
+               document.getElementById("distancia").textContent = `Distância até o pet: ${distancia} metros`;
+              document.getElementById("ultima-localizacao").textContent = `Última localização registrada: ${distanciaUltimaLocalizacao} metros da localização atual do pet`;
+
+                // Verificar se o pet está próximo ou não
+                if (distancia <= 100) {
+                    exibirNotificacao("Você encontrou o seu pet!", "encontrado");
+                } else {
+                    exibirNotificacao("Você perdeu o seu pet!", "perdido");
+                }
+            });
+
+            // Exibir observação da bateria
+            const porcentagemBateria = 80;
+            document.getElementById("bateria").textContent = `Observação da bateria: ${porcentagemBateria}%`;
+        }
+
+        function calcularDistancia(coordenadas1, coordenadas2) {
+            const lat1 = coordenadas1.lat;
+            const lng1 = coordenadas1.lng;
+            const lat2 = coordenadas2.lat();
+            const lng2 = coordenadas2.lng();
+
+            const earthRadius = 6371; // Raio da Terra em quilômetros
+
+            const deltaLat = degToRad(lat2 - lat1);
+            const deltaLng = degToRad(lng2 - lng1);
+
+            const a =
+                Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) +
+                Math.cos(degToRad(lat1)) * Math.cos(degToRad(lat2)) *
+                Math.sin(deltaLng / 2) * Math.sin(deltaLng / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+            const distance = earthRadius * c * 1000; // Distância em metros
+
+            return distance.toFixed(2);
+        }
+
+        function degToRad(degrees) {
+            return degrees * (Math.PI / 180);
+        }
+
+        function exibirNotificacao(mensagem, tipo) {
+            const notification = new google.maps.InfoWindow({
+                content: `<div>${mensagem}</div>`,
+            });
+
+            notification.open(map, petMarker);
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTfVor-Pfiby_9g3r47R8mqnOM5Yd6wZ4&callback=initMap" async defer></script>
+</head>
+<body>
+    <h1>Localizador de Pet</h1>
+    <div id="map"></div>
+    <div class="info-container">
+        <p id="distancia"></p>
+        <p id="ultima-localizacao"></p>
+        <p id="bateria"></p>
+    </div>
+</body>
+</html>
